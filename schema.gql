@@ -1,0 +1,454 @@
+# ------------------------------------------------------
+# THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
+# ------------------------------------------------------
+
+type CMSGroup {
+  _id: String!
+  groupName: String!
+
+  """status"""
+  status: Float!
+
+  """Created At"""
+  createdAt: DateTime!
+
+  """Updated At"""
+  updatedAt: DateTime!
+}
+
+"""
+A date-time string at UTC, such as 2019-12-03T09:54:33Z, compliant with the date-time format.
+"""
+scalar DateTime
+
+type PageDataDto {
+  count: Float!
+  limit: Float!
+  offset: Float!
+}
+
+type ListCmsGroupResponse {
+  page: CMSGroupConnection!
+  pageData: PageDataDto
+}
+
+type CMSGroupConnection {
+  edges: [CMSGroupEdge!]
+  pageInfo: CMSGroupPageInfo
+}
+
+type CMSGroupEdge {
+  cursor: String
+  node: CMSGroup
+}
+
+type CMSGroupPageInfo {
+  startCursor: String
+  endCursor: String
+  hasPreviousPage: Boolean!
+  hasNextPage: Boolean!
+}
+
+type User {
+  _id: String!
+  firstName: String
+  lastName: String
+  email: String
+  password: String
+  phone: String
+  picUrl: String
+  fcmToken: String
+  userType: String
+  otherRoles: [String!]
+  status: Int
+
+  """Created At"""
+  createdAt: DateTime
+
+  """Updated At"""
+  updatedAt: DateTime
+}
+
+type ConditionData {
+  field: String!
+  condition: String!
+  value: String!
+}
+
+type ConditionDetails {
+  field: String!
+  condition: String!
+  value: String!
+}
+
+type ModulesData {
+  moduleName: String!
+  display: String!
+  parent: String
+  priority: Int!
+  isMenu: Boolean!
+  url: String
+  icon: String!
+  addCondition: [ConditionDetails!]
+  status: Int!
+}
+
+type FieldObj {
+  _id: ID
+  fieldName: String
+  type: String
+  value: String
+}
+
+type CreatedObj {
+  author: String!
+  picUrl: String
+  date: String!
+  _id: String!
+}
+
+type ModifiedObj {
+  author: String!
+  picUrl: String
+  date: String!
+  _id: String!
+}
+
+type ContentObj {
+  _id: String!
+  title: String
+  fields: [FieldObj!]
+  status: Int!
+}
+
+type MemberObj {
+  _id: String!
+}
+
+type ContentFields {
+  fields: [FieldObj!]
+}
+
+type Cms {
+  _id: String!
+  page: String!
+  templateId: String!
+  groupName: String!
+  slug: String
+  groupId: String!
+  content: [ContentObj!]
+  fields: [FieldObj!]
+  members: [MemberObj!]
+  membersData: [User!]
+  created: CreatedObj
+  modified: ModifiedObj
+  cmsType: String
+  status: Int
+}
+
+type ListCmsResponse {
+  page: CmsConnection!
+  pageData: PageDataDto
+}
+
+type CmsConnection {
+  edges: [CmsEdge!]
+  pageInfo: CmsPageInfo
+}
+
+type CmsEdge {
+  cursor: String
+  node: Cms
+}
+
+type CmsPageInfo {
+  startCursor: String
+  endCursor: String
+  hasPreviousPage: Boolean!
+  hasNextPage: Boolean!
+}
+
+type ListFieldObjResponse {
+  page: FieldObjConnection!
+  pageData: PageDataDto
+}
+
+type FieldObjConnection {
+  edges: [FieldObjEdge!]
+  pageInfo: FieldObjPageInfo
+}
+
+type FieldObjEdge {
+  cursor: String
+  node: FieldObj
+}
+
+type FieldObjPageInfo {
+  startCursor: String
+  endCursor: String
+  hasPreviousPage: Boolean!
+  hasNextPage: Boolean!
+}
+
+type ListContentObjResponse {
+  page: ContentObjConnection!
+  pageData: PageDataDto
+}
+
+type ContentObjConnection {
+  edges: [ContentObjEdge!]
+  pageInfo: ContentObjPageInfo
+}
+
+type ContentObjEdge {
+  cursor: String
+  node: ContentObj
+}
+
+type ContentObjPageInfo {
+  startCursor: String
+  endCursor: String
+  hasPreviousPage: Boolean!
+  hasNextPage: Boolean!
+}
+
+type RespFieldData {
+  _id: String!
+  fields: FieldObj
+}
+
+type Media {
+  _id: String!
+  name: String
+  type: String
+  file: String
+  createdBy: String
+  userDetails: User
+
+  """Created At"""
+  createdAt: DateTime
+
+  """Updated At"""
+  updatedAt: DateTime
+}
+
+type ListMediaResponse {
+  page: MediaConnection!
+  pageData: PageDataDto
+}
+
+type MediaConnection {
+  edges: [MediaEdge!]
+  pageInfo: MediaPageInfo
+}
+
+type MediaEdge {
+  cursor: String
+  node: Media
+}
+
+type MediaPageInfo {
+  startCursor: String
+  endCursor: String
+  hasPreviousPage: Boolean!
+  hasNextPage: Boolean!
+}
+
+type Query {
+  cmsList(listCmsInput: ListCmsInput!): [Cms!]!
+  cms(id: String!): Cms!
+  listCmsWithCursor(search: String!, filter: String!, args: ConnectionArgs!): ListCmsResponse!
+  listCmsContentsWithCursor(cmsId: String!, args: ConnectionArgs!): ListContentObjResponse!
+  listCmsFieldWithCursor(filter: String!, search: String!, id: String!, args: ConnectionArgs!): ListFieldObjResponse!
+  findContentFields(contentId: String!, cmsId: String!): [ContentFields!]!
+  deleteContentField(fieldId: String!, contentId: String!, cmsId: String!): [ContentFields!]!
+  fieldsContentFindOne(createCmsFieldsInput: CreateFieldDataInp!): RespFieldData!
+  allCMS: [Cms!]!
+  allCMSData(search: String!): [Cms!]!
+  cmsGroups(listCmsGroupInput: ListCmsGroupInput!): [CMSGroup!]!
+  cmsGroup(id: String!): CMSGroup!
+  listCMSGroupsWithCursor(filter: Int, search: String!, args: ConnectionArgs!): ListCmsGroupResponse!
+  allCMSGroup: [CMSGroup!]!
+  users(listUsersInput: ListUsersInput!): [User!]!
+  listMediasWithCursor(args: ConnectionArgs!): ListMediaResponse!
+  media(id: String!): Media!
+}
+
+input ListCmsInput {
+  """classical limit"""
+  limit: Float!
+
+  """classical offset"""
+  offset: Float!
+}
+
+input ConnectionArgs {
+  """Paginate before opaque cursor"""
+  before: String
+
+  """Paginate after opaque cursor"""
+  after: String
+
+  """Paginate first"""
+  first: Float
+
+  """Paginate last"""
+  last: Float
+}
+
+input CreateFieldDataInp {
+  _id: String!
+  contentId: String
+  fields: [FieldData!]
+}
+
+input FieldData {
+  _id: String
+  fieldName: String
+  type: String
+  value: String
+}
+
+input ListCmsGroupInput {
+  """classical limit"""
+  limit: Float!
+
+  """classical offset"""
+  offset: Float!
+}
+
+input ListUsersInput {
+  """classical limit"""
+  limit: Float!
+
+  """classical offset"""
+  offset: Float!
+}
+
+type Mutation {
+  createCms(createCmsInput: CreateCmsInput!): Cms!
+  createCmsFields(createCmsFieldsInput: CreateFieldDataInp!): RespFieldData!
+  createCmsContent(id: String!, createCmsContentInput: CreateContentDataInp!): Cms!
+  updateCMS(UpdateCmsInput: UpdateCmsInput!): Cms!
+  updateCMSField(createCmsFieldsInput: CreateFieldDataInp!): RespFieldData!
+  updateCMSContent(createCmsContentInput: CreateContentDataInp!, contentId: String!, cmsId: String!): Cms!
+  removeFieldsContent(createCmsInput: CreateFieldDataInp!): Cms!
+  removeCMS(id: String!): Cms!
+  changeCMSStatus(status: Int!, _id: String!): Cms!
+  createLayoutField(createLayoutField: CreateLayoutDataInp!): RespFieldData!
+  updateLayoutField(updateLayoutField: CreateLayoutDataInp!): RespFieldData!
+  removeLayoutField(removeLayoutField: CreateLayoutDataInp!): Cms!
+  createCmsGroup(createCmsGroupInput: CreateCmsGroupInput!): CMSGroup!
+  updateCMSGroup(UpdateCmsGroupInput: UpdateCmsGroupInput!): CMSGroup!
+  removeCMSGroup(id: String!): CMSGroup!
+  changeCMSGroupStatus(status: Int!, _id: String!): CMSGroup!
+  createUser(createUserInput: CreateUserInput!): User!
+  addUser(createUserInput: CreateUserInput!): User!
+  createMedia(createMediaInput: CreateMediaInput!): Media!
+  removeMedia(id: String!): Boolean!
+  cmsLibraryUpload: Boolean!
+}
+
+input CreateCmsInput {
+  page: String!
+  templateId: String!
+  cmsType: String
+  groupId: String!
+  slug: String
+  groupName: String
+  fields: [FieldData!]
+  members: [MemberObject!]
+  created: CreatedData
+  modified: ModifiedData
+  status: Int
+}
+
+input MemberObject {
+  _id: String!
+}
+
+input CreatedData {
+  author: String!
+  picUrl: String
+  date: String!
+}
+
+input ModifiedData {
+  author: String!
+  picUrl: String
+  date: String!
+}
+
+input CreateContentDataInp {
+  title: String
+  fields: [FieldData!]
+  status: Int
+}
+
+input UpdateCmsInput {
+  page: String
+  templateId: String
+  cmsType: String
+  groupId: String
+  slug: String
+  groupName: String
+  fields: [FieldData!]
+  members: [MemberObject!]
+  created: CreatedData
+  modified: ModifiedData
+  status: Int
+  _id: String!
+}
+
+input CreateLayoutDataInp {
+  _id: String!
+  fields: FieldData
+}
+
+input CreateCmsGroupInput {
+  groupName: String!
+}
+
+input UpdateCmsGroupInput {
+  groupName: String
+  _id: String!
+}
+
+input CreateUserInput {
+  _id: String!
+
+  """first name of the user"""
+  firstName: String!
+
+  """last name of the user"""
+  lastName: String
+
+  """email of the user"""
+  email: String!
+
+  """phone no of the user"""
+  phone: String!
+
+  """firebase token"""
+  fcmToken: String!
+
+  """firebase token"""
+  picUrl: String!
+
+  """user type of user"""
+  userType: String!
+  otherRoles: [String!]
+
+  """user type of user"""
+  status: Int!
+
+  """password of user"""
+  password: String!
+}
+
+input CreateMediaInput {
+  name: String
+  type: String
+  file: String
+  createdBy: String
+}

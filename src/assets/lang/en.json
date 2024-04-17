@@ -1,0 +1,7 @@
+{
+    "something": "Oops!, Something went wrong",
+    "uuid_required": "UUID is required",
+    "invaliduuid":"uuid is required!",
+    "invalid_uuid": "UUID is invalid",
+    "already_exist": "This data already exists"
+}
